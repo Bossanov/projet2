@@ -1,0 +1,93 @@
+    <!-- Page-->
+    <div class="page text-center">
+      <!-- Masonry Blog-->
+      <section class="section-98 section-sm-110 text-left">
+        <div class="shell">
+          <div class="range range-xs-center">
+            <div class="cell-md-10 cell-lg-8">
+              <h2>Quelle catégorie vous interesse ?</h2>
+              <hr class="divider divider-lg bg-secondary hr-left-0 hr-sm-left-2">
+              <input type="submit" id="tous" value="Tous" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="meopa" value="Meopa" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="evenement" value="Evènement" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="hs" value="HAS" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="sante" value="Santé et handicap" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="culture" value="Culture" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <input type="submit" id="vie" value="Vie associative" class="btn btn-ellipse btn-primary" style="margin: 10px;">
+              <div class="range range-xs-center" id="choicetheme">
+              </div>
+            </div>
+            <div class="cell-sm-10 cell-md-8 cell-lg-4 offset-top-66 offset-md-top-90 offset-lg-top-0">
+              <div class="blog-grid-sidebar inset-lg-left-30">
+                <!-- Aside-->
+                <aside class="text-left">
+                  <!-- Recent Posts-->
+                  <div>
+                    <h3>Posts récents</h3>
+                    <hr class="text-subline">
+                  </div>
+                  <div class="offset-top-14 offset-md-top-20">
+                    <!-- List Marked-->
+                    <ul class="list list-marked list-marked-icon text-dark inset-left-0 list-marked-gray">
+                      <% @articles.where(status: 'Validé').order("created_at DESC").first(5).each do |article| %>
+                        <% @profile = Profile.find(article.profile_id)  %>
+                        <li><a class="text-java text-bold"><%= link_to article.article_title, profile_article_path(@profile, article)%></a><br>
+                        <time datetime="2017-04-30" class="text-gray-dark"><%= article.created_at.strftime("%d.%m.%Y") %></time>
+                        </li>
+                      <% end  %>
+                    </ul>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Java script-->
+    <script>
+  const choice = document.getElementById("choicetheme");
+  choice.innerHTML = "<%= j render 'shared/articlesall' %>";
+  const tous = document.getElementById("tous");
+  tous.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlesall' %>";
+  });
+  const meopa = document.getElementById("meopa");
+  meopa.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlesmeopa' %>";
+  });
+  const evenement = document.getElementById("evenement");
+  evenement.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlesevenement' %>";
+  });
+  const hs = document.getElementById("hs");
+  hs.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articleshs' %>";
+  });
+  const sante = document.getElementById("sante");
+  sante.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlessante' %>";
+  });
+  const culture = document.getElementById("culture");
+  culture.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlesculture' %>";
+  });
+  const vie = document.getElementById("vie");
+  vie.addEventListener("click", (event) => {
+    const choice = document.getElementById("choicetheme");
+    choice.innerHTML = "";
+    choice.innerHTML = "<%= j render 'shared/articlesvie' %>";
+  });
+</script>

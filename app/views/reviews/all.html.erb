@@ -1,0 +1,67 @@
+<!-- Page-->
+<div class="page text-center">
+  <!-- Page Contents-->
+  <main class="page-content">
+    <!-- Modern Blog-->
+    <div id="fb-root"></div>
+    <section class="section-98 section-sm-110 text-left">
+      <div class="shell">
+        <div class="range range-xs-center range-lg-right">
+          <div class="cell-sm-10 cell-md-8">
+            <div class="offset-top-30 offset-md-top-66" style="margin-top: 0px">
+              <div class="clearfix"></div>
+              <div class="offset-top-66">
+                <h3>Ce que vous pensez de nous</h3>
+                <hr class="text-subline">
+              </div>
+              <% Review.where(review_status: 'Validé').each do |review| %>
+                <% @profile = Profile.find(review.profile_id)  %>
+                <div class="offset-top-30">
+                  <div class="unit unit-xs unit-xs-horizontal">
+                    <% if review.profile.photo_url.nil? %>
+                      <div class="unit-left"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png", width:'170', height:'170', class:'img-circle img-responsive center-block' %></div>
+                    <% else  %>
+                      <div class="unit-left"><%= image_tag Profile.find(review.profile_id).photo, width:'170', height:'170', class:'img-circle img-responsive center-block' %></div>
+                    <% end %>
+                    <div class="unit-body text-xs-left">
+                      <div>
+                        <h4><a><%= link_to @profile.first_name, profile_path(@profile), class: 'text-primary' %> <%= link_to @profile.last_name, profile_path(@profile), class: 'text-primary' %></a></h4>
+                      </div>
+                      <div class="offset-top-4 offset-sm-top-8">
+                        <div class="text-gray text-italic"><%= review.review_title %></div>
+                      </div>
+                      <div class="offset-top-20 text-left">
+                        <p class="text-gray-darker"><%= review.review_content %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end  %>
+            </div>
+          </div>
+          <div class="cell-sm-10 cell-md-4 offset-top-66 offset-md-top-0">
+            <div class="blog-grid-sidebar inset-xl-left-30">
+              <!-- Aside-->
+              <aside class="text-left">
+                <!-- Archive-->
+              <div class="offset-top-66">
+                <h3>Quelques renseignements ?</h3>
+                <hr class="text-subline">
+              </div>
+                <div class="offset-top-14 offset-md-top-20">
+                  <div class="range range-xs-center range-lg-left">
+                    <%= link_to "Voir la charte", "/charte.pdf", target: "_blank", class:"btn-fullwidth btn btn-white btn-ellipse", style:"margin-top:20px"%>
+                    <%= link_to "Voir la plaquette", "/plaquette.pdf", target: "_blank", class:"btn-fullwidth btn btn-white btn-ellipse", style:"margin-top:20px"%>
+                    <%= link_to 'Nous contacter', contacts_path, class: 'btn-fullwidth btn btn-white btn-ellipse', style:"margin-top:20px"%>
+                    <%= link_to 'Poster un avis sur Handident', new_profile_review_path(:profile_id), class: 'btn-fullwidth btn btn-primary btn-ellipse', style:"margin-top:20px;"%>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+

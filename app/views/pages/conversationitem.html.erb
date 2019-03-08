@@ -1,0 +1,51 @@
+<% @profilesortant = Profile.find_by_id(current_user.profile.id) %>
+<% @profileentrant = Profile.find_by_id(params[:auteur_id]) %>
+<% @sort = Message.where(profile_id: @profilesortant.id, destinataire: "#{@profileentrant.last_name} #{@profileentrant.first_name}" ) %>
+<% @entre = Message.where(profile_id: @profileentrant.id, destinataire: "#{@profilesortant.last_name} #{@profilesortant.first_name}") %>
+<% @all = @sort + @entre %>
+<!-- Page-->
+<div class="page text-center">
+  <!-- Page Content-->
+  <main class="page-content section-66 section-sm-100">
+    <!-- Heading Style-->
+    <section>
+      <div class="shell">
+        <div class="range range-sm-center text-left">
+          <div class="cell-sm-10 cell-md-12">
+            <div>
+              <h2>Ma conversation avec <%= @profileentrant.first_name %></h2>
+              <hr class="text-subline">
+              <% @all.sort.each do |mess| %>
+                <% if @profileentrant.id == mess.profile_id %>
+                  <div class="bg-white-liac section-30 inset-left-15 inset-right-15 inset-md-left-30 inset-md-right-30" style="margin-top: 20px;">
+                    <p style="padding-top: 30px;"><strong>Message reçu le <%= mess.created_at.strftime("%d.%m.%Y") %></strong></p>
+                    <% pro = Profile.find_by_id(mess.profile_id) %>
+                    <h4 class="text-bold"> <%= mess.message_title%> </h4>
+                    <p><%= mess.message_content%></p>
+                    <% if mess.message_photo.present? %>
+                      <a href='<%= mess.message_photo %>' target="_blank" class="text-secondary">Pièce jointe</a>
+                    <% end %>
+                  </div>
+                <% else  %>
+                  <div class="bg-white-liac section-30 inset-left-15 inset-right-15 inset-md-left-30 inset-md-right-30" style="margin-top: 20px;">
+                    <p style="padding-top: 30px;"><strong>Message envoyé le <%= mess.created_at.strftime("%d.%m.%Y") %></strong></p>
+                    <% pro = Profile.find_by_id(mess.profile_id) %>
+                    <h4 class="text-bold"> <%= mess.message_title%> </h4>
+                    <p><%= mess.message_content%></p>
+                    <% if mess.message_photo.present? %>
+                      <a href='<%= mess.message_photo %>' target="_blank" class="text-secondary">Pièce jointe</a>
+                    <% end %>
+                  </div>
+                <% end  %>
+              <% end  %>
+            </div>
+
+            <a><%= link_to 'Répondre', new_profile_message_path(@profileentrant), class: 'btn btn-xs btn-rect btn-primary', style:"margin-top: 20px;"%></a>
+            <a><%= link_to 'Retour', profile_path(current_user.profile), class: 'btn btn-xs btn-rect btn-primary', style:"margin-top: 20px;"%></a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

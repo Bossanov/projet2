@@ -1,0 +1,350 @@
+<!-- Page-->
+<div class="page text-center">
+  <div class="breadcrumb-inset-left">
+    <!-- Modern Breadcrumbs-->
+    <section class="breadcrumb-modern context-dark text-md-left" style="background-image: none">
+      <div class="shell section-34 section-md-top-160 section-md-bottom-41", style="color:#434445">
+        <h1 style="color:#434445"><%= @profile.first_name.capitalize %> <%= @profile.last_name.upcase %></h1>
+        <ul class="list-inline list-inline-arrows p offset-top-34 offset-md-top-70">
+          <li> <%= link_to 'Accueil', root_path %> </li>
+          <li> <%= link_to 'Liste', profiles_path %> </li>
+          <li>Membre depuis <%= @profile.created_at.strftime("%m/%Y") %> </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <!-- Page Content-->
+
+  <main class="page-content">
+    <!-- team member section-->
+    <section class="section-98 section-sm-top-34 section-sm-bottom-110">
+      <div class="shell">
+        <div class="range range-xs-center">
+          <div class="cell-xs-10 cell-md-4">
+            <!-- Member block type 5-->
+            <% if @profile.photo_url.nil? %>
+              <div class="member-block-type-5 inset-md-right-20"><img src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" width="320" height="320" alt="" class="img-responsive center-block"/> <!-- options available with cloudinary crop: :thumb, gravity: :face -->
+                <!-- ajouter une restriction sur l'accès à l'edit du profile -->
+                <% if current_user.present? && @profile.id == current_user.profile.id && current_user.profile.category == "admin" %>
+
+                    <p><%= link_to 'MAJ Base Donnée', excelcreator_path , class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <%= link_to "Télécharger la BD", "/sauvegarde.csv", target: "_blank", class:"btn-fullwidth btn-ellipse btn btn-primary"%>
+                  <% end %>
+                  <% if current_user.present? && current_user.profile && @profile.id == current_user.profile.id %>
+
+                    <p><%= link_to 'éditer mon profil', edit_profile_path(@profile), class: 'btn-fullwidth btn btn-ellipse btn-white offset-sm-top-41 offset-top-41 offset-md-top-60'%></p>
+                    <p><%= link_to 'Rédiger un article', new_profile_article_path(@profile), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <p><%= link_to 'Voir mes messages', pages_conversation_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <% if current_user.profile.category != "Patient" %>
+                      <p><%= link_to 'Voir mes demandes de Rdv', pages_demande_rdv_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <% end %>
+                    <p><%= link_to 'Envoyer un message ', new_profile_message_path(current_user.profile), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                  <% elsif current_user.present? && current_user.profile && @profile.id != current_user.profile.id && @profile.category != "admin" %>
+                    <p><%= link_to 'Lui envoyer un message', new_profile_message_path(current_user.profile,  destinataire: "#{@profile.last_name} #{@profile.first_name}"), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <p><%= link_to 'Lui demander un rdv', new_profile_meeting_path(current_user.profile,destinataire: "#{@profile.last_name} #{@profile.first_name}"), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                  <% elsif current_user.present? && current_user.profile && @profile.id != current_user.profile.id && @profile.category == "admin"%>
+                    <p><%= link_to 'Lui envoyer un message', new_profile_message_path(current_user.profile,  destinataire: "#{@profile.last_name} #{@profile.first_name}"), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                  <% end %>
+
+                  <p><%= link_to 'Voir les autres dentistes', profiles_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                  <p><%= link_to 'Que pensez-vous de Handident?', new_profile_review_path(:profile_id), class: 'btn-fullwidth btn-ellipse btn btn-primary' %></p>
+              </div>
+            <% else  %>
+              <div class="member-block-type-5 inset-md-right-20"><%= cl_image_tag @profile.photo, width:"320", height: "320", alt:"", class:"img-responsive center-block" %> <!-- options available with cloudinary crop: :thumb, gravity: :face -->
+                <!-- ajouter une restriction sur l'accès à l'edit du profile -->
+                   <% if current_user.present? && @profile.id == current_user.profile.id && current_user.profile.category == "admin" %>
+                    <p><%= link_to 'MAJ Base Donnée', excelcreator_path , class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <%= link_to "Télécharger la BD", "/sauvegarde.csv", target: "_blank", class:"btn-fullwidth btn-ellipse btn btn-primary"%>
+                  <% end %>
+                  <% if current_user.present? && @profile.id == current_user.profile.id %>
+                    <p><%= link_to 'éditer mon profil', edit_profile_path(@profile), class: 'btn-fullwidth btn btn-ellipse btn-white offset-sm-top-41 offset-top-41 offset-md-top-60'%></p>
+                    <p><%= link_to 'Rédiger un article', new_profile_article_path(@profile), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                     <p><%= link_to 'Voir mes messages', pages_conversation_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <% if current_user.profile.category != "Patient" %>
+                      <p><%= link_to 'Voir mes demandes de Rdv', pages_demande_rdv_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <% end %>
+                    <p><%= link_to 'Envoyer un message ', new_profile_message_path(current_user.profile), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+
+                  <% elsif current_user.present? && current_user.profile && @profile.id != current_user.profile.id %>
+                    <p><%= link_to 'Lui envoyer un message', new_profile_message_path(current_user.profile, destinataire: "#{@profile.last_name} #{@profile.first_name}"), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                    <p><%= link_to 'Lui demander un rdv', new_profile_meeting_path(current_user.profile,destinataire: "#{@profile.last_name} #{@profile.first_name}"), class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+
+                  <% end %>
+
+                  <p><%= link_to 'Voir les profils', profiles_path, class: 'btn-fullwidth btn-ellipse btn btn-primary'%></p>
+                  <p><%= link_to 'Que pensez-vous de Handident?', new_profile_review_path(:profile_id), class: 'btn-fullwidth btn-ellipse btn btn-primary' %></p>
+              </div>
+            <% end  %>
+          </div>
+          <div class="cell-xs-10 cell-md-8 text-md-left offset-top-60 offset-md-top-0">
+            <div class="range">
+              <div class="cell-sm-5">
+                <div>Statut</div>
+                <h4 class="text-bold"><%= @profile.category %></h4>
+              </div>
+              <div class="cell-sm-7 offset-top-41 offset-sm-top-0">
+                <div>Formation</div>
+                <h4 class="text-bold"><%= @profile.formation %></h4>
+              </div>
+            </div>
+            <div class="offset-top-66 text-left">
+              <h5>Biographie</h5>
+              <hr class="text-subline">
+              <p><%= @profile.biographie %></p>
+            </div>
+
+            <% if current_user.present? && @profile.id == current_user.profile.id %>
+
+            <div class="offset-top-66 text-left">
+              <h5>Mes dons à Handident</h5>
+              <% donations = Donation.where(profile_id: current_user.profile.id) %>
+              <% donations.each do |don|%>
+                <hr >
+                <p>Don de <%= don.price_cents / 100 %> euros le <%= don.created_at.strftime("%d.%m.%Y") %></p>
+              <% end %>
+            </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+    <% content_for(:after_js) do %>
+      <%= javascript_tag do %>
+        var handler = Gmaps.build('Google');
+        handler.buildMap({ internal: { id: 'map' } }, function() {
+          markers = handler.addMarkers(<%= raw @markers.to_json %>);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          if (markers.length == 0) {
+            handler.getMap().setZoom(2);
+          } else if (markers.length == 1) {
+            handler.getMap().setZoom(14);
+          }
+        });
+      <% end %>
+    <% end %>
+    <!-- Scott Riley’s blog posts-->
+    <section class="section-98 section-sm-110 bg-white-liac">
+      <div class="shell">
+        <h2>Vos articles</h2>
+        <hr class="divider divider-lg bg-secondary">
+        <div class="offset-top-41 offset-lg-top-60">
+          <div class="range range-xs-center">
+            <% if @articles.count == 0 %>
+              <div class="post-title offset-top-8">
+                <h4 class="text-bold">Aucun article publié</h4>
+              </div>
+            <% else  %>
+              <% @articles.each do |article| %>
+              <% @profile = Profile.find(article.profile_id) %>
+                <div class="cell-xs-10 cell-sm-8 cell-md-4">
+                  <!-- Post Modern-->
+                  <article class="post post-modern post-modern-classic">
+                    <!-- Post media-->
+                    <header class="post-media"><a href="<%= profile_article_path(@profile, article)%>"><%= image_tag article.article_photo, width:'370', height:'250', crop: :thumb, class:'img-responsive img-cover"' %></a>
+                    </header>
+                    <!-- Post content-->
+                    <section class="post-content text-left">
+                      <!-- Post Title-->
+                      <div class="post-title offset-top-8">
+                        <h4 class="text-bold"><a href="<%= profile_article_path(@profile, article)%>"><%= article.article_title %></a></h4>
+                      </div>
+                      <ul class="list-inline list-inline-dashed">
+                        <li><%= article.created_at.strftime("%d.%m.%Y") %></li>
+                        <li><a class="text-secondary" style="color: #95c22b"><%= article.theme  %></a></li>
+                      </ul>
+                      <!-- Post Body-->
+                      <div class="post-body">
+                        <div class="offset-top-14">
+                          <p><%= article.article_content.first(150) %></p>
+                        </div>
+                      </div>
+                      <div class="tags group group-sm">
+                      </div>
+                    </section>
+                  </article>
+                </div>
+              <% end %>
+            <% end  %>
+          </div><a <%= link_to 'Voir tous les articles', articles_all_path, class: 'btn btn-ellipse btn-primary offset-top-41 offset-md-top-60'%></a>
+        </div>
+      </div>
+    </section>
+    <% if @profile.category == "admin"  %>
+<!--       LES ARTICLES A VALIDER -->
+      <% if @articles_a_valider.count != 0 %>
+        <section class="section-98 section-sm-110 bg-white-liac" style="padding-top: 0px">
+          <div class="shell">
+            <h2>Les articles que vous devez valider</h2>
+            <hr class="divider divider-lg bg-secondary">
+            <div class="offset-top-41 offset-lg-top-60">
+              <div class="range range-xs-center">
+                <% @articles_a_valider.each do |article| %>
+                <% @profile = Profile.find(article.profile_id) %>
+                  <div class="cell-xs-10 cell-sm-8 cell-md-4">
+                    <!-- Post Modern-->
+                    <article class="post post-modern post-modern-classic">
+                      <!-- Post media-->
+                      <header class="post-media"><a href="<%= profile_article_path(@profile, article)%>"><%= image_tag article.article_photo, width:'370', height:'250', crop: :thumb, class:'img-responsive img-cover"' %></a>
+                      </header>
+                      <!-- Post content-->
+                      <section class="post-content text-left">
+                        <!-- Post Title-->
+                        <div class="post-title offset-top-8">
+                          <h4 class="text-bold"><a href="<%= profile_article_path(@profile, article)%>"><%= article.article_title %></a></h4>
+                        </div>
+                        <ul class="list-inline list-inline-dashed">
+                          <li><%= article.created_at.strftime("%d.%m.%Y") %></li>
+                          <li><a href="#" class="text-secondary"><%= article.theme %></a></li>
+                        </ul>
+                        <!-- Post Body-->
+                        <div class="post-body">
+                          <div class="offset-top-14">
+                            <p><%= article.article_content.first(150) %></p>
+                          </div>
+                        </div>
+                        <div class="tags group group-sm">
+                        </div>
+                      </section>
+                    </article>
+                    <a href="<%= profile_article_path(@profile, article) %>", class="btn btn-xs btn-rect btn-white", style="margin-bottom: 10px;">Voir</a>
+                    <a href="<%= edit_profile_article_path(@profile, article) %>", class="btn btn-xs btn-rect btn-white", style="margin-bottom: 10px;">Editer</a>
+                    <a href="<%= valider_article_path(articleid: article.id, profileid: article.profile_id) %>", class="btn btn-xs btn-rect btn-primary", style="margin-bottom: 10px;">Valider</a>
+                    <a href="<%= refuser_article_path(articleid: article.id, profileid: article.profile_id) %>", class="btn btn-xs btn-rect btn-red", style="margin-bottom: 10px;">Refuser</a>
+                  </div>
+                <% end %>
+              </div>
+              <%= link_to 'Voir tous les articles', articles_all_path, class: 'btn btn-ellipse btn-primary offset-top-41 offset-md-top-60'%>
+            </div>
+          </div>
+        </section>
+      <% end  %>
+<!--       LES ARTICLES REFUSES -->
+      <% if @articles_refuses.count != 0 %>
+        <section class="section-98 section-sm-110 bg-white-liac" style="padding-top: 0px">
+          <div class="shell">
+            <h2>Les articles que vous avez refusés</h2>
+            <hr class="divider divider-lg bg-secondary">
+            <div class="offset-top-41 offset-lg-top-60">
+              <div class="range range-xs-center">
+                <% @articles_refuses.each do |article| %>
+                <% @profile = Profile.find(article.profile_id) %>
+                  <div class="cell-xs-10 cell-sm-8 cell-md-4">
+                    <!-- Post Modern-->
+                    <article class="post post-modern post-modern-classic">
+                      <!-- Post media-->
+                      <header class="post-media"><a href="<%= profile_article_path(@profile, article)%>"><%= image_tag article.article_photo, width:'370', height:'250', crop: :thumb, class:'img-responsive img-cover"' %></a>
+                      </header>
+                      <!-- Post content-->
+                      <section class="post-content text-left">
+                        <!-- Post Title-->
+                        <div class="post-title offset-top-8">
+                          <h4 class="text-bold"><a href="<%= profile_article_path(@profile, article)%>"><%= article.article_title %></a></h4>
+                        </div>
+                        <ul class="list-inline list-inline-dashed">
+                          <li><%= article.created_at.strftime("%d.%m.%Y") %></li>
+                          <li><a href="#" class="text-secondary"><%= article.theme %></a></li>
+                        </ul>
+                        <!-- Post Body-->
+                        <div class="post-body">
+                          <div class="offset-top-14">
+                            <p><%= article.article_content.first(150) %></p>
+                          </div>
+                        </div>
+                        <div class="tags group group-sm">
+                        </div>
+                      </section>
+                    </article>
+                    <a href="<%= profile_article_path(@profile, article) %>", class="btn btn-xs btn-rect btn-white", style="margin-bottom: 10px;">Voir</a>
+                    <a href="<%= edit_profile_article_path(@profile, article) %>", class="btn btn-xs btn-rect btn-white", style="margin-bottom: 10px;">Editer</a>
+                    <a href="<%= valider_article_path(articleid: article.id, profileid: article.profile_id) %>", class="btn btn-xs btn-rect btn-primary", style="margin-bottom: 10px;">Valider</a>
+                  </div>
+                <% end %>
+              </div>
+              <%= link_to 'Voir tous les articles', articles_all_path, class: 'btn btn-ellipse btn-primary offset-top-41 offset-md-top-60'%>
+            </div>
+          </div>
+        </section>
+      <% end  %>
+<!--       LES REVIEWS A VALIDER -->
+    <% if Review.where(review_status: 'A valider')  != [] %>
+      <section class="section-98 section-sm-110 bg-white-liac" style="padding-top: 0px">
+        <div class="shell">
+          <h2>Témoignages à valider</h2>
+          <hr class="divider divider-lg bg-secondary">
+          <div class="offset-top-60">
+            <div data-loop="false" data-margin="15" data-items="1" data-dots="true" data-mouse-drag="false" data-md-items="3" data-nav="false" class="owl-carousel owl-carousel-default owl-carousel-default-1 owl-carousel-class-light owl-dots-secondary">
+              <% @reviews = Review.where(review_status: 'A valider').order('RANDOM()') %>
+              <% @reviews.each do |review| %>
+                <div class="owl-item">
+                  <blockquote class="quote quote-classic quote-classic-secondary">
+                    <div class="quote-body">
+                      <p class="text-italic text-gray-dark"><%= review.review_content %></p>
+                      <div class="quote-meta unit unit-horizontal unit-spacing-sm unit-middle">
+                        <% if Profile.find(review.profile_id).photo.present? %>
+                          <div class="unit-left unit-item-narrow"><%= image_tag Profile.find(review.profile_id).photo, width:'60', height:'60', class:'img-circle quote-img' %></div>
+                        <% else  %>
+                          <div class="unit-left unit-item-narrow"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png", width:'60', height:'60', class:'img-circle quote-img' %></div>
+                        <% end %>
+                        <div class="unit-body unit-item-wide">
+                          <h4 class="quote-author text-capitalize text-bold text-java">
+                            <cite class="text-normal"><%= Profile.find(review.profile_id).first_name %> <%= Profile.find(review.profile_id).last_name %></cite>
+                          </h4>
+                          <p class="quote-desc text-capitalize text-gray text-italic"><%= Profile.find(review.profile_id).category %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </blockquote>
+                  <a href="<%= valider_review_path(reviewid: review.id, profileid: review.profile_id) %>", class="btn btn-xs btn-rect btn-primary", style="margin-top: 10px;">Valider</a>
+                  <a href="<%= refuser_review_path(reviewid: review.id, profileid: review.profile_id) %>", class="btn btn-xs btn-rect btn-red", style="margin-top: 10px;">Refuser</a>
+                </div>
+              <% end  %>
+            </div>
+          </div>
+          <div class="offset-top-60"><%= link_to 'Tous les témoignages', reviews_all_path , class:"btn btn-ellipse btn-primary btn-lg"%></div>
+        </div>
+      </section>
+    <% end %>
+<!--       LES REVIEWS REFUSES -->
+    <% if Review.where(review_status: 'Refusé')  != [] %>
+      <section class="section-98 section-sm-110 bg-white-liac" style="padding-top: 0px">
+        <div class="shell">
+          <h2>Témoignages refusés</h2>
+          <hr class="divider divider-lg bg-secondary">
+          <div class="offset-top-60">
+            <div data-loop="false" data-margin="15" data-items="1" data-dots="true" data-mouse-drag="false" data-md-items="3" data-nav="false" class="owl-carousel owl-carousel-default owl-carousel-default-1 owl-carousel-class-light owl-dots-secondary">
+              <% @reviews = Review.where(review_status: 'Refusé').order('RANDOM()') %>
+              <% @reviews.each do |review| %>
+                <div class="owl-item">
+                  <blockquote class="quote quote-classic quote-classic-secondary">
+                    <div class="quote-body">
+                      <p class="text-italic text-gray-dark"><%= review.review_content %></p>
+                      <div class="quote-meta unit unit-horizontal unit-spacing-sm unit-middle">
+                        <% if Profile.find(review.profile_id).photo.present? %>
+                          <div class="unit-left unit-item-narrow"><%= image_tag Profile.find(review.profile_id).photo, width:'60', height:'60', class:'img-circle quote-img' %></div>
+                        <% else  %>
+                          <div class="unit-left unit-item-narrow"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png", width:'60', height:'60', class:'img-circle quote-img' %></div>
+                        <% end %>
+                        <div class="unit-body unit-item-wide">
+                          <h4 class="quote-author text-capitalize text-bold text-java">
+                            <cite class="text-normal"><%= Profile.find(review.profile_id).first_name %> <%= Profile.find(review.profile_id).last_name %></cite>
+                          </h4>
+                          <p class="quote-desc text-capitalize text-gray text-italic"><%= Profile.find(review.profile_id).category %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </blockquote>
+                  <a href="<%= valider_review_path(reviewid: review.id, profileid: review.profile_id) %>", class="btn btn-xs btn-rect btn-primary", style="margin-top: 10px;">Valider</a>
+                </div>
+              <% end  %>
+            </div>
+          </div>
+          <div class="offset-top-60"><%= link_to 'Tous les témoignages', reviews_all_path , class:"btn btn-ellipse btn-primary btn-lg"%></div>
+        </div>
+      </section>
+    <% end %>
+    <% end  %>
+  </main>
+</div>

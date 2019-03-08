@@ -1,0 +1,77 @@
+<div class="page text-center">
+      <!-- Page Content-->
+      <main class="page-content section-98 section-sm-110" style="padding-top: 0px;">
+        <!-- Contact us-->
+        <section class="offset-top-90 offset-md-top-130">
+          <%= simple_form_for @profile do |f| %>
+            <div class="shell">
+              <div class="range range-xs-center range-lg-left">
+                <div class="cell-sm-8">
+                  <h4 class="text-md-left">Mettre à jour mon profil</h4>
+                  <hr class="text-subline">
+                  <div class="offset-top-30">
+                    <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" novalidate="novalidate" class="rd-mailform text-left">
+                      <div class="range range-xs-center">
+                        <div class="cell-sm-6">
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :first_name , id:"contacts-first-name", type:"text", name:"Prénom", required: true, class: "form-control form-control-last-child", label:"Prénom"%>
+                          </div>
+                          <div class="form-group form-group-label-outside offset-top-20">
+                            <%= f.input :phone_number , id:"contacts-phone", type:"text", name:"Téléphone", required: true, class: "form-control form-control-last-child", label:"Numéro de téléphone" %>
+                          </div>
+                          <div class="form-group form-group-label-outside offset-top-20">
+                            <% @categories = ["Dentiste", "Patient"] %>
+                            <%= f.input :category , :collection => @categories, id:"contacts-phone", type:"text", name:"Téléphone", required: true, class: "form-control form-control-last-child", label:"Catégorie de profil" %>
+                          </div>
+                        </div>
+                        <div class="cell-sm-6 offset-top-20 offset-sm-top-0">
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :last_name , id:"contacts-last-name", type:"text", name:"Nom", required: true, class: "form-control form-control-last-child", label:"Nom" %>
+                          </div>
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :birthday, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 25, order: [:day, :month, :year], required: true, class: "form-control", label:"Date de naissance" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group form-group-label-outside offset-top-20">
+                        <%= f.input :address , id:"contacts-last-name", type:"text", name:"Adresse", required: true, class: "form-control form-control-last-child" , label:"Adresse"%>
+                      </div>
+                      <div class="range range-xs-center" style="margin-top:0">
+                        <div class="cell-sm-6">
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :post_code , id:"contacts-first-name", type:"text", name:"Prénom", required: true, class: "form-control form-control-last-child", label:"Code postal" %>
+                          </div>
+                        </div>
+                        <div class="cell-sm-6 offset-top-20 offset-sm-top-0">
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :city , id:"contacts-last-name", type:"text", name:"Nom", required: true, class: "form-control form-control-last-child", label:"Ville" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group form-group-label-outside offset-top-20">
+                        <%= f.input :biographie , input_html: {style: 'max-height:1500px;'}, required: true, class: "form-control form-control-last-child", label:"Biographie" %>
+                      </div>
+                      <div class="form-group form-group-label-outside">
+                        <%= f.input :formation , id:"contacts-last-name", type:"text", name:"Formation", required: true, class: "form-control form-control-last-child", label:"Formation" %>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <%= f.input :photo, class: "form-control", label:"Photo"%>
+                          <%= f.input :photo_cache, as: :hidden %>
+                        </div>
+                      </div>
+                      <div class="offset-top-18 offset-sm-top-30 text-center text-sm-left">
+                        <button type="submit" style="min-width: 130px;" class="btn-fullwidth btn btn-ellipse btn-primary ">créer mon profil</button>
+                        <p><%= link_to 'Annuler', root_path(current_user.profile), class: 'btn-fullwidth btn btn-ellipse btn-white', style:"margin-top:20px"%></p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </section>
+      </main>
+    </div>
+
+

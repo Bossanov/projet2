@@ -1,0 +1,156 @@
+<div class="page text-center">
+  <!-- Page Header-->
+  <header class="page-head">
+    <!-- RD Navbar minimal-->
+    <div class="rd-navbar-wrap">
+      <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="120px" data-lg-stick-up-offset="120px" class="rd-navbar rd-navbar-minimal rd-navbar-light " data-lg-auto-height="true" data-md-layout="rd-navbar-static" data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+        <div class="rd-navbar-inner">
+          <div class="rd-navbar-top-panel">
+            <!--Navbar Brand-->
+            <div class="rd-navbar-brand veil reveal-md-inline-block"><a href="/" class="veil reveal-lg-inline-block"><%= cl_image_tag "d595b7_a2b7f4d6f3504368ba7822b3d48b9a46-mv2_fotrsm.png", :height=>99, :crop=>"scale" , class:'img-responsive' %></a></div>
+            <div>
+              <!-- Contact Info-->
+              <address class="contact-info reveal-sm-inline-block text-left offset-none">
+                <div class="p unit unit-spacing-xs unit-horizontal">
+                  <div class="unit-left"><span class="icon icon-xs icon-circle icon-java-filled mdi mdi-phone"></span></div>
+                  <div class="unit-body"><a class="text-gray-darker" style="text-decoration: none">06.24.48.44.75</a><br/><a class="text-gray-darker" style="text-decoration: none">info@handipulse.fr</a></div>
+                </div>
+              </address>
+              <!-- Contact Info-->
+              <address class="contact-info reveal-sm-inline-block text-left">
+                <div class="p unit unit-horizontal unit-spacing-xs">
+                  <div class="unit-left"><span class="icon icon-xs icon-circle icon-java-filled mdi mdi-map-marker"></span></div>
+                  <div class="unit-body"><a class="text-gray-darker" style="text-decoration: none">10 rue du Petit Boulevard BP 20127<br/>59653 Villeneuve d'Ascq Cedex</a></div>
+                </div>
+              </address>
+            </div>
+          </div>
+          <!-- RD Navbar Panel-->
+          <div class="rd-navbar-panel">
+            <!-- RD Navbar Toggle-->
+            <button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+            <!--Navbar Brand-->
+            <div class="rd-navbar-brand veil-md"><a href="/"><%= image_tag "logo-dark.png", width:'160', height:'45', class:'img-responsive' %></a></div>
+<!--             <button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-top-panel" class="rd-navbar-top-panel-toggle"><span></span></button> -->
+          </div>
+          <div class="rd-navbar-menu-wrap">
+            <div class="rd-navbar-nav-wrap">
+              <div class="rd-navbar-mobile-scroll">
+                <!--Navbar Brand Mobile-->
+                <div class="rd-navbar-mobile-brand"><a href="/"><%= cl_image_tag "d595b7_a2b7f4d6f3504368ba7822b3d48b9a46-mv2_fotrsm.png", :width=>100, :height=>100, :crop=>"scale" , class:'img-responsive' %></a></div>
+                <!-- RD Navbar Nav-->
+                <ul class="rd-navbar-nav">
+                  <li class="<%= is_active?(root_path) %>"><%= link_to 'Accueil', root_path %>
+                  </li>
+                  <li class="<%= is_active?(pages_about_path) %>"><%= link_to 'A propos', pages_about_path %>
+                  </li>
+                  <li class="<%= is_active?(pages_all_articles_categories_path) %>"><%= link_to 'News', articles_all_path %>
+                  </li>
+                  <li class="<%= is_active?(profiles_path) %> <%= is_active?(pages_soins_path) %>"><%= link_to 'Se soigner', profiles_path %>
+                    <div class="rd-navbar-megamenu">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h6>Notre but est d'améliorer l'offre de soins</h6>
+                          <hr class="text-subline"/>
+                          <ul class="list-unstyled offset-lg-top-25">
+                            <li><%= link_to 'Cabinets dentaires libéraux', profiles_path %></li>
+                            <li><%= link_to 'Soins spécifiques en USOS', pages_soins_path %></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="<%= is_active?(pages_formation_path) %>"><%= link_to 'Formation / Prévention', pages_formation_path %>
+                  </li>
+                  <li class="<%= is_active?(pages_partnerships_path) %><%= is_active?(pages_make_a_donation_path) %><%= is_active?(pages_support_us_path) %>"><%= link_to 'Partenaires', pages_partnerships_path %>
+                    <div class="rd-navbar-megamenu">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h6>Faites partie de l'aventure Handident</h6>
+                          <hr class="text-subline"/>
+                          <ul class="list-unstyled offset-lg-top-25">
+                            <li> <%= link_to 'Faites un don', pages_make_a_donation_path %></li>
+                            <li> <%= link_to 'Entreprises, soutenez-nous !', pages_support_us_path %></li>
+                            <li> <%= link_to 'Nos partenaires', pages_partnerships_path %></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="<%= is_active?(contacts_path) %>"><%= link_to 'Contact', contacts_path %>
+                  </li>
+                  <li>
+                    <% if user_signed_in? %>
+                      <% if current_user && current_user.profile %>
+                        <li class="<%= is_active?(profile_path(current_user.profile)) %><%= is_active?(edit_profile_path(current_user.profile)) %> "><%= link_to 'Mon Compte', profile_path(current_user.profile) %>
+                          <div class="rd-navbar-megamenu">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h6> Bonjour <%= current_user.profile.first_name %></h6>
+                                <hr class="text-subline"/>
+                                <ul class="list-unstyled offset-lg-top-25">
+                                  <li><%= link_to 'Voir mon profil', profile_path(current_user.profile) %></li>
+                                  <li> <%= link_to 'Editer mon profil', edit_profile_path(current_user.profile) %></li>
+                                  <li> <%= link_to 'Se déconnecter', destroy_user_session_path, :method => 'delete' %></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% else %>
+                        <li class="<%= is_active?(new_profile_path) %>"><%= link_to 'Mon Compte' %>
+                          <div class="rd-navbar-megamenu">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h6>Mes données</h6>
+                                <hr class="text-subline"/>
+                                <ul class="list-unstyled offset-lg-top-25">
+                                  <li><%= link_to 'Créer mon profil', new_profile_path %></li>
+                                  <li><%= link_to 'Se déconnecter', destroy_user_session_path, :method => 'delete' %></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                    <% else %>
+                      <li class="<%= is_active?(new_user_session_path) %><%= is_active?(new_user_registration_path) %><%= is_active?(new_user_password_path) %>"><%= link_to 'Me connecter', new_user_session_path %>
+                      </li>
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- Modern Breadcrumbs-->
+    <section class="breadcrumb-modern context-dark text-md-left">
+      <div class="shell section-34 section-md-top-200 section-md-bottom-41">
+        <% if current_page?(pages_about_path) %>
+          <h1 class="text-regular">A propos</h1>
+        <% elsif current_page?(profiles_path) %>
+          <h1 class="text-regular">Les dentistes partenaires</h1>
+        <% elsif current_page?(pages_formation_path) %>
+          <h1 class="text-regular">Formation et prévention</h1>
+        <% elsif current_page?(pages_make_a_donation_path) %>
+          <h1 class="text-regular">Faites un don</h1>
+        <% elsif current_page?(pages_support_us_path) %>
+          <h1 class="text-regular">Entreprise, aidez-nous !</h1>
+        <% elsif current_page?(pages_partnerships_path) %>
+          <h1 class="text-regular">Nos partenaires</h1>
+        <% elsif current_page?(contacts_path) %>
+          <h1 class="text-regular">Contactez-nous !</h1>
+        <% elsif current_page?(pages_soins_path) %>
+          <h1 class="text-regular">Améliorer l'offre de soins</h1>
+        <% elsif current_page?(articles_all_path) %>
+          <h1 class="text-regular">Tous les articles</h1>
+        <% else  %>
+          <h1 class="text-regular"></h1>
+        <% end  %>
+      </div>
+    </section>
+  </header>
+</div>
+

@@ -1,0 +1,43 @@
+<% i = 0  %>
+<% if Article.where(theme: "Meopa") == [] %>
+  <div class="cell-sm-6">
+    <!-- Post Modern-->
+    <article class="post post-modern post-modern-classic">
+      <section class="post-content text-left">
+        <!-- Post Title-->
+        <div class="post-title offset-top-8">
+          <p class="text-bold">Aucun article de cette catégorie n'a été rédigé pour le moment</p>
+        </div>
+      </section>
+    </article>
+  </div>
+<% end  %>
+<% @articles.where(status: 'Validé').order("created_at DESC").each do |article| %>
+  <% if article.theme == "Meopa" && i < 3 %>
+    <% i = i + 1  %>
+    <% @profile = Profile.find(article.profile_id)  %>
+    <div class="cell-sm-6">
+      <!-- Post Modern-->
+      <article class="post post-modern post-modern-classic">
+        <!-- Post media-->
+        <header class="post-media"><%= image_tag article.article_photo, width:"370", height:"240", class:"img-responsive img-cover" %>
+        </header>
+        <!-- Post content-->
+        <section class="post-content text-left">
+          <!-- Post Title-->
+          <div class="post-title offset-top-8">
+            <h4 class="text-bold"> <%= link_to article.article_title, profile_article_path(@profile, article)%> </h4>
+          </div>
+          <ul class="list-inline list-inline-dashed">
+            <li><%= article.created_at.strftime("%d.%m.%Y") %></li>
+            <li><i  class="text-secondary"><%=article.theme%></i></li>
+          </ul>
+          <!-- Post Body-->
+          <div class="post-body" style="margin-bottom: 30px;">
+            <p><%= article.article_content.first(200) %> ...</p>
+          </div>
+        </section>
+      </article>
+    </div>
+  <% end  %>
+<% end %>

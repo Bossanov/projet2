@@ -1,0 +1,28 @@
+<div class="page text-center">
+  <main class="page-content section-98 section-sm-110" style="padding-top: 0px;">
+    <section class="offset-top-90 offset-md-top-130">
+      <div class="shell text-left">
+        <div class="range range-xs-center range-lg-left">
+          <div class="cell-sm-8 cell-lg-6">
+            <h4 class="text-md-left">Mot de passe oublié</h4>
+            <hr class="text-subline">
+            <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= f.error_notification %>
+              <p>Veuillez saisir votre email pour réinitialiser votre mot de passe</p>
+              <form data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php" novalidate="novalidate" class="rd-mailform form-inline-custom rd-mailform-subscribe">
+                <div class="form-group">
+                  <div class="input-group">
+<!--                         <input id="regula-generated-874563" placeholder="Enter your e-mail" type="email" name="email" data-constraints="@Required @Email" class="form-control form-control-ellipse"><span class="input-group-btn"> -->
+                    <%= f.input :email, required: true, autofocus: true, id:"regula-generated-874563", placeholder:"Entrez votre e-mail", type:"email", name:"email", label:false, class:"form-control form-control-ellipse" %><span class="input-group-btn">
+                    <%= f.button :submit, "Réinitialiser", class: "btn btn-ellipse btn-primary", style: "font-weight: bold" %></span>
+                  </div>
+                </div>
+              </form>
+            <% end %>
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

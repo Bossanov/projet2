@@ -1,0 +1,60 @@
+<% @profile = Profile.find_by_id(current_user.profile.id) %>
+
+<% @sort = Message.where(profile_id: @profile.id ) %>
+<% @entre = Message.where(destinataire: "#{@profile.last_name} #{@profile.first_name}") %>
+<% @sort.each do |mess| %>
+  <% pro = Profile.find_by_id(mess.profile_id) %>
+
+  <div class="cell-sm-6">
+    <!-- Post Modern-->
+    <article class="post post-modern post-modern-classic">
+      <!-- Post media-->
+      <header class="post-media"><%= image_tag pro.photo, width:"370", height:"240", class:"img-responsive img-cover" %>
+      </header>
+      <!-- Post content-->
+      <section class="post-content text-left">
+        <!-- Post Title-->
+        <div class="post-title offset-top-8">
+          <h4 class="text-bold"> <%= mess.message_title%> </h4>
+        </div>
+        <ul class="list-inline list-inline-dashed">
+          <li><%= mess.created_at %></li>
+          <li><a href="blog-masonry.html" class="text-secondary">Auteur = <%=pro.last_name%> <%=pro.first_name%></a></li>
+        </ul>
+        <!-- Post Body-->
+        <div class="post-body" style="margin-bottom: 30px;">
+          <p><%= mess.message_content%></p>
+        </div>
+      </section>
+    </article>
+  </div>
+<% end  %>
+
+<% @entre.each do |mess| %>
+  <% pro = Profile.find_by_id(mess.profile_id) %>
+
+  <div class="cell-sm-6">
+    <!-- Post Modern-->
+    <article class="post post-modern post-modern-classic">
+      <!-- Post media-->
+      <header class="post-media"><%= image_tag pro.photo, width:"370", height:"240", class:"img-responsive img-cover" %>
+      </header>
+      <!-- Post content-->
+      <section class="post-content text-left">
+        <!-- Post Title-->
+        <div class="post-title offset-top-8">
+          <h4 class="text-bold"> <%= mess.message_title%> </h4>
+        </div>
+        <ul class="list-inline list-inline-dashed">
+          <li><%= mess.created_at %></li>
+          <li><a href="blog-masonry.html" class="text-secondary">Auteur = <%=pro.last_name%> <%=pro.first_name%></a></li>
+        </ul>
+        <!-- Post Body-->
+        <div class="post-body" style="margin-bottom: 30px;">
+          <p><%= mess.message_content%></p>
+        </div>
+      </section>
+    </article>
+  </div>
+<% end  %>
+

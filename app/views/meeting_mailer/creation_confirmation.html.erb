@@ -1,0 +1,7 @@
+<h1>Vous avez une nouvelle demande de rdv sur Handident</h1>
+<p><%= Profile.find(@meeting.profile_id).first_name %> <%= Profile.find(@meeting.profile_id).last_name %> vous a envoyé un message</p>
+<p>Cliquez</p> <a href='www.google.com>' class="btn btn-block btn-rect text-md-left btn-secondary">ici</a> <p>pour le consulter</p>
+
+<p>
+  <%= @greeting %>, find me in app/views/meeting_mailer/creation_confirmation.html.erb
+</p>

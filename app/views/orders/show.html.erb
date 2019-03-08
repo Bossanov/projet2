@@ -1,0 +1,117 @@
+<!-- Page-->
+<div class="page text-center">
+  <!-- Page Content-->
+  <main class="page-content section-top-98 section-sm-top-110">
+    <!-- Get In Touch-->
+    <section>
+      <div class="shell">
+        <div class="range range-xs-center">
+          <div class="cell-sm-9 cell-md-8 cell-lg-12">
+            <div class="range">
+              <div class="cell-lg-8 text-left">
+                <h2>Nous vous remercions pour votre don!</h2>
+                <hr class="divider divider-lg bg-secondary hr-left-0 hr-sm-left-2">
+                  <% order = Order.find_by_id(params[:id])%>
+                  <p> Vous venez de faire une donation de <%=order.amount_cents / 100 %> euros à Handident ! </p>
+                  <p><%= link_to "Retour à l'accueil", root_path(current_user.profile), class:'btn-fullwidth btn btn-ellipse btn-primary', style:"margin-top:20px"%></p>
+              </div>
+              <div class="cell-lg-4 text-left offset-top-66 offset-lg-top-0">
+                <div class="inset-lg-left-40">
+                  <div>
+                    <h4>Liens sociaux</h4>
+                    <hr class="text-subline">
+                      <ul class="list-inline">
+                        <li><a href="https://fr-fr.facebook.com/handident/" target="_blank" class="icon fa fa-facebook icon-xxs icon-circle icon-gray-light"></a></li>
+                        <li><a href="https://twitter.com/handidentoff" target="_blank" class="icon fa fa-twitter icon-xxs icon-circle icon-gray-light"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCgVsiGM8NqG5VBQ9j_ZBjTQ" target="_blank" class="icon fa fa-google icon-xxs icon-circle icon-gray-light"></a></li>
+                      </ul>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Adresse</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-map-marker text-secondary"></div>
+                        </div>
+                        <div class="unit-body">
+                          <p><a class="text-gray-dark" style="text-decoration: none;">10 rue du Petit Boulevard BP 20127<br>59653 Villeneuve d'Ascq Cedex</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Heures d'ouverture</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-calendar-clock text-secondary"></div>
+                        </div>
+                        <div class="unit-body">
+                          <div class="text-gray-dark">Lun-Ven: 08:00–18:00</div>
+                          <div class="text-gray-dark">WE: Fermé</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Téléphone</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-phone text-secondary"></div>
+                        </div>
+                        <div class="unit-body"><a class="text-dark reveal-block">+33.3.28.80.7.86</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>E-mail</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-email-outline text-secondary"></div>
+                        </div>
+                        <div class="unit-body"><a href="mailto:#" class="text-dark">Hello@handident.com</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offset-top-110">
+            <!-- RD Google Map-->
+    <div id="map" style="width: 100%; height: 400px;"></div>
+    <% content_for(:after_js) do %>
+      <%= javascript_tag do %>
+        var handler = Gmaps.build('Google');
+        handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(
+          [
+            {
+              "lat": 50.626831,
+              "lng": 3.144445,
+              "infowindow": "<p>10 rue du Petit Boulevard, 59653 Villeneuve d'Ascq</p>"
+            },
+          ]
+        );
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          if (markers.length == 0) {
+            handler.getMap().setZoom(2);
+          } else if (markers.length == 1) {
+            handler.getMap().setZoom(14);
+          }
+        });
+      <% end %>
+    <% end %>
+      </div>
+    </section>
+  </main>
+</div>

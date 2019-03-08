@@ -1,0 +1,321 @@
+
+<!-- Page-->
+
+<div class="page text-center">
+  <!-- Page Head-->
+  <header class="page-head rd-navbar-sidebar-toggle-wrap">
+    <!--Swiper-->
+    <div data-loop="true" data-height="" data-slide-effect="fade" data-dragable="false" data-min-height="400px" class="swiper-container swiper-slider bg-white">
+      <div class="swiper-top-panel">
+        <div class="shell">
+          <div class="swiper-top-panel-left"><a href="/" class="veil reveal-lg-inline-block"><%= image_tag "/assets/logo.png", width:'158', height:'45', class:'img-responsive' %></a></div>
+          <div class="swiper-top-panel-center">
+            <!-- Contact Info-->
+            <address class="contact-info reveal-sm-inline-block text-left offset-none">
+              <div class="p unit unit-spacing-xs unit-horizontal">
+                <div class="unit-left"><span class="icon icon-xs icon-circle icon-java-filled mdi mdi-phone"></span></div>
+                <div class="unit-body"><a class="text-white" style="text-decoration: none">+33.3.28.80.07.86</a><br><a class="text-white" style="text-decoration: none">contact@handident.com</a></div>
+              </div>
+            </address>
+          </div>
+          <div class="swiper-top-panel-right">
+            <address class="contact-info reveal-sm-inline-block text-left">
+              <div class="p unit unit-horizontal unit-spacing-xs">
+                <div class="unit-left"><span class="icon icon-xs icon-circle icon-java-filled mdi mdi-map-marker"></span></div>
+                <div class="unit-body"><a class="text-white" style="text-decoration: none">10 rue du Petit Boulevard BP 20127<br>59653 Villeneuve d'Ascq Cedex</a></div>
+              </div>
+            </address>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-wrapper context-dark text-center">
+        <div id="page-loader" data-slide-bg="ƒ" class="swiper-slide">
+          <div class="swiper-caption">
+            <div class="swiper-slide-caption">
+              <div class="shell shell-fullheight">
+                <div class="range range-xs-middle range-xs-center range-md-left">
+                  <div class="cell-md-7 cell-lg-8 section-41 section-sm-98">
+                    <div class="text-md-left">
+                      <h2 class="text-bold">Coordonner pour mieux soigner</h2>
+                      <h4 class="text-regular veil reveal-md-block">Grâce à une mise en commun des énergies et des savoir-faire, LE RESEAU HANDIDENT souhaite promouvoir sur le territoire régional une démarche pilote qui met la personne au cœur du processus de soins.</h4><a><%= link_to 'Faire un don', pages_make_a_donation_path, class: 'btn btn-ellipse btn-white offset-top-14 offset-sm-top-41'%></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-slide-bg="http://res.cloudinary.com/dz83jh064/image/upload/v1518719627/background-02-1920x800_fq5nhi.jpg" class="swiper-slide">
+          <div class="swiper-caption">
+            <div class="swiper-slide-caption">
+              <div class="shell shell-fullheight">
+                <div class="range range-xs-middle range-xs-center range-md-left">
+                  <div class="cell-md-7 section-41 section-sm-98 to-front">
+                    <div class="text-md-left">
+                      <h2 class="text-bold">Faciliter l'accès aux soins</h2>
+                      <h4 class="text-regular veil reveal-md-block">Nous somme là pour évaluer le besoin dans le cadre d'une situation personnelle et proposer une orientation et une prise en charge adaptée aux besoins.</h4><a><%= link_to 'Faire un don', pages_make_a_donation_path, class: 'btn btn-ellipse btn-white offset-top-14 offset-sm-top-41'%></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-slide-bg="http://res.cloudinary.com/dz83jh064/image/upload/v1518719627/background-02-1920x800_fq5nhi.jpg" class="swiper-slide">
+          <div class="swiper-caption">
+            <div class="swiper-slide-caption">
+              <div class="shell shell-fullheight">
+                <div class="range range-xs-middle range-xs-center range-md-left">
+                  <div class="cell-md-7 cell-lg-8 section-41 section-sm-98">
+                    <div class="text-md-left">
+                      <h2 class="text-bold">Développer la prévention et le dépistage</h2>
+                      <h4 class="text-regular veil reveal-md-block">Un professionnel chirurgien-dentiste du réseau se déplace au sein de l'établissement pour évaluer l'état de l'hygiène buccodentaire et les besoins en soins de la personne.</h4><a><%= link_to 'Faire un don', pages_make_a_donation_path, class: 'btn btn-ellipse btn-white offset-top-14 offset-sm-top-41'%></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+      <%= render 'shared/searchdentist'%>
+      </div>
+      <script>
+                            var selectdept= document.getElementById("index-dept");
+                            selectdept.addEventListener("change", (event) => {
+                              var city = document.getElementById("index-city");
+                              var deptdept = document.getElementById("index-dept").value;
+                              var name = document.getElementById("index-doctor");
+                              while (name.firstChild) {
+                                  name.removeChild(name.firstChild);
+                                };
+
+                              city.innerHTML = "";
+
+
+
+                              fetch(`/citywithdept?dept=${deptdept}`)
+                                .then(response => response.json())
+                                .then((data) => {
+                                  data.forEach((person) => {
+                                  var    item = `<option id="${person.city}" value="${person.city}">${person.city}</option>` ;
+
+                                  city.insertAdjacentHTML("beforeend", item);
+                                  });
+                                });
+
+
+
+                            city.addEventListener("change", (event) => {
+                              const boutton = document.getElementById("bouttonsearch");
+                              const name = document.getElementById("index-doctor");
+                              const citycity = document.getElementById("index-city").value;
+
+                              name.innerHTML = "";
+                              fetch(`/dentistwithcity?city=${citycity}`)
+                                .then(response => response.json())
+                                .then((data) => {
+
+                                  name.innerHTML="";
+                                  data.forEach((person) => {
+                                    const item = `<option value ="${person.id}">${person.last_name} ${person.first_name}</option>` ;
+
+
+                                    name.insertAdjacentHTML("beforeend", item);
+                                  });
+                                });
+                                while (boutton.firstChild) {
+                                  boutton.removeChild(boutton.firstChild);
+                                };
+                              boutton.insertAdjacentHTML("beforeend", '<button type="button" onclick="getOption3()" class="btn-fullwidth btn-ellipse btn btn-primary">Afficher</button>');
+                            name.innerHTML = "";
+                              });
+
+                            });
+                            function getOption3() {
+                            const citycity = document.getElementById("index-city").value;
+                            const deptdept = document.getElementById("index-dept").value;
+                            const nameid = document.getElementById("index-doctor").value;
+                            document.location.href=`/getSearch?id=${nameid}&city=${citycity}&dept=${deptdept}`;
+                            };
+                          </script>
+      <div class="swiper-pagination"></div>
+    </div>
+  </header>
+  <!-- Page Contents-->
+  <main class="page-content">
+    <!-- Schedule-->
+    <section class="section-34 section-bottom-66 section-md-bottom-110">
+      <div class="shell offset-top-100">
+        <h2>Développer la prévention</h2>
+        <hr class="divider divider-lg bg-secondary">
+        <div class="range range-xs-center offset-top-60">
+          <div class="cell-sm-8 cell-md-4">
+            <!-- Unit-->
+            <div class="unit unit-horizontal text-left">
+              <div class="unit-left"><span class="icon icon-circle icon-pills-xl icon-border-none"></span></div>
+              <div class="unit-body">
+                <h4 class="text-bold">Le dépistage</h4>
+                <p>Un chirurgien-dentiste du réseau se déplace au sein de l'établissement pour évaluer l'état de l'hygiène buccodentaire et les besoins en soins de la personne.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cell-sm-8 cell-md-4 offset-top-50 offset-md-top-0">
+            <!-- Unit-->
+            <div class="unit unit-horizontal text-left">
+              <div class="unit-left"><span class="icon icon-circle icon-doctor-xl icon-border-none"></span></div>
+              <div class="unit-body">
+                <h4 class="text-bold">Le développement</h4>
+                <p>Une fois formé, le personnel est en mesure de comprendre les enjeux d'une bonne santé buccodentaire. Il devient ainsi un relai éducationnel incontournable garantissant la qualité de vie dans l'accompagnement et l'élaboration du projet personnel de l'usager.</p>
+              </div>
+            </div>
+          </div>
+          <div class="cell-sm-8 cell-md-4 offset-top-50 offset-md-top-0">
+            <!-- Unit-->
+            <div class="unit unit-horizontal text-left">
+              <div class="unit-left"><span class="icon icon-circle icon-medical-car-xl icon-border-none"></span></div>
+              <div class="unit-body">
+                <h4 class="text-bold">Les ateliers éducationnels</h4>
+                <p>A destination des usagers et de leurs familles, ils sont un espace et un temps privilégiés afin d'adapter les gestes d'hygiène buccodentaire aux difficultés de chaque personne. Ils sont co-animés par le personnel formé et un chirurgien-dentiste du réseau.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Our Services-->
+    <section class="section-66 section-sm-90 section-sm-bottom-110 bg-white-liac">
+      <div class="shell">
+        <h2>Améliorer l'offre de soins</h2>
+        <hr class="divider divider-lg bg-secondary">
+        <div class="offset-top-60">
+          <p>Nous souhaitons que chaque personne puisse profiter d'un accès facile, rapide et à proximité de chez elle.</p>
+        </div>
+        <div class="range offset-top-60 text-md-left">
+          <div class="cell-sm-6 cell-md-4">
+
+            <div class="service"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/c_thumb,h_320,w_320/v1520326540/ATELIER_EDUCATIONNEL_ACCOMPAGNANTS_hhg6iq.jpg", width:'320', height:'320', class:'img-responsive' %><a <%= link_to 'En ville', pages_soins_path, class: 'service-desc text-regular h5'%></a>
+            </div>
+          </div>
+          <div class="cell-sm-6 cell-md-4 offset-top-50 offset-sm-top-0">
+            <div class="service"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/c_thumb,h_320,w_320/v1520326540/ATELIER_EDUCATIONNEL_ACCOMPAGNANTS_hhg6iq.jpg", width:'320', height:'320', class:'img-responsive' %><a> <%= link_to 'En USOS', pages_soins_path, class: 'service-desc text-regular h5'%></a>
+            </div>
+          </div>
+          <div class="cell-sm-6 cell-md-4 offset-top-50 offset-md-top-0">
+            <div class="service"><%= image_tag "http://res.cloudinary.com/dz83jh064/image/upload/c_thumb,h_320,w_320/v1520326539/PATIENTE_POLYHANDICAPEE_2_f3jsoe.jpg", width:'320', height:'320', class:'img-responsive' %><a <%= link_to 'Sous anesthésie', pages_soins_path, class: 'service-desc text-regular h5'%> </a>
+            </div>
+          </div>
+        </div>
+        <div class="offset-top-70"><a><%= link_to 'Voir les soins', pages_soins_path, class: 'btn btn-ellipse btn-primary'%></a></div>
+      </div>
+    </section>
+    <!-- Featured Dental News-->
+    <section class="section-66 section-sm-110">
+      <div class="shell-wide shell-wide-xl">
+        <h2>Les derniers articles publiés</h2>
+        <hr class="divider divider-lg bg-secondary">
+        <div class="range range-xs-center offset-top-60">
+          <% articles = Article.where(status: 'Validé')  %>
+          <% articles.last(4).each do |article| %>
+            <% @profile = Profile.find(article.profile_id)  %>
+            <div class="cell-sm-8 cell-md-5 cell-lg-3">
+              <!-- Post Modern-->
+              <article class="post post-modern post-modern-classic">
+                <!-- Post media-->
+<!--                     <header class="post-media"><%= image_tag article.article_photo, class:"img-responsive img-cover" %></header> -->
+                <!-- Post content-->
+                <section class="post-content text-left">
+                  <!-- Post Title-->
+                  <div class="post-title offset-top-8">
+                    <h4 class="text-bold"><%= link_to article.article_title.first(60) +" ...", profile_article_path(@profile, article)%></h4>
+                  </div>
+                  <ul class="list-inline list-inline-dashed">
+                    <li><%= article.created_at.strftime("%d.%m.%Y") %></li>
+                    <li><a style="color: #95c22b" class="text-secondary"><%= article.theme %></a></li>
+                  </ul>
+                  <!-- Post Body-->
+                  <div class="post-body">
+                    <p><%= article.article_content.first(150) %> ...</p>
+                  </div>
+                </section>
+              </article>
+            </div>
+          <% end  %>
+        </div>
+        <div class="offset-top-60"><%= link_to "Tous les articles", articles_all_path, class:"btn btn-ellipse btn-primary" %></div>
+      </div>
+    </section>
+    <!-- Our team-->
+        <section class="section-98 section-sm-110">
+          <div class="shell">
+            <h2>Notre équipe</h2>
+            <hr class="divider divider-lg bg-secondary">
+            <div class="offset-top-41 offset-lg-top-60">
+              <div class="range range-xs-center">
+                <% @admins = Profile.where(category: "admin") %>
+                <% @admins.each do |adm| %>
+
+                <div class="cell-xs-9 cell-sm-7 cell-md-3">
+                  <!-- Thumbnail Josip-->
+                  <% if adm.photo.present? %>
+
+                    <figure class="thumbnail-josip odd" ><a href="<%= profile_path(adm)%>"> <%= cl_image_tag adm.photo, width:"270", height: "270", alt:"" %></a>
+
+                  <% else %>
+                    <figure class="thumbnail-josip odd" ><a href="<%= profile_path(adm)%>"><img width="270" height="270" src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" alt=""/></a>
+
+                  <% end %>
+                    <div class="thumbnail-desc">
+                      <h4 class="thumbnail-josip-title text-bold text-white"><%= adm.last_name%> <%= adm.first_name %></h4>
+                      <p class="veil reveal-md-block text-italic text-white offset-top-0"><%= adm.formation %></p>
+                    </div>
+                    <figcaption><%= link_to 'Voir le profil', profile_path(adm.id), class:"btn btn-block btn-rect text-md-left btn-secondary", style:"color: white; font-weight: bold; border-radius:0px" %></figcaption>
+                  </figure>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </section>
+    <!-- RD Parallax-->
+    <section class="rd-parallax context-dark" style="background-image:  url('http://res.cloudinary.com/dz83jh064/image/upload/c_thumb,h_800,w_1920/v1520326539/ATELIER_EDUCATIONNEL_ACCOMPAGNANTS_3_mj5psd.jpg'); opacity:1">
+        <div class="bg-overlay-light section-98 section-sm-160 context-dark">
+          <div class="shell">
+            <h2>Comment pouvons-nous vous aider?</h2>
+            <hr class="divider divider-lg bg-white">
+            <p class="offset-top-14 offset-md-top-60">N'hésitez pas à nous contacter</p>
+            <%= link_to 'Nous Contacter', contacts_path, class:"btn btn-ellipse btn-white offset-top-14 offset-md-top-34" %>
+          </div>
+        </div>
+    </section>
+    <!-- RD Google Map-->
+    <div id="map" style="width: 100%; height: 400px;"></div>
+
+    <% content_for(:after_js) do %>
+      <%= javascript_tag do %>
+
+        var handler = Gmaps.build('Google')
+        handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(
+          [
+            {
+              "lat": 50.626831,
+              "lng": 3.144445,
+              "infowindow": "<p>10 rue du Petit Boulevard, 59653 Villeneuve d'Ascq</p>"
+            },
+          ]
+        );
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          if (markers.length == 0) {
+            handler.getMap().setZoom(2);
+          } else if (markers.length == 1) {
+            handler.getMap().setZoom(14);
+          }
+        });
+      <% end %>
+    <% end %>
+  </main>
+</div>
+

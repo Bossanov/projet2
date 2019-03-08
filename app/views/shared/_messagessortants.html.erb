@@ -1,0 +1,42 @@
+<h2> Mes messages envoyés </h2>
+<% @profile = Profile.find_by_id(current_user.profile.id) %>
+<% @sort = Message.where(profile_id: @profile.id ) %>
+<% @sort.each do |mess| %>
+  <% pro = Profile.find_by_id(mess.profile_id) %>
+
+  <div class="cell-sm-6">
+    <!-- Post Modern-->
+    <article class="post post-modern post-modern-classic">
+      <!-- Post media-->
+
+      <!-- Post content-->
+      <section class="post-content text-left">
+        <!-- Post Title-->
+        <div class="post-title offset-top-8">
+          <h4 class="text-bold"> <%= mess.message_title%> </h4>
+        </div>
+        <ul class="list-inline list-inline-dashed">
+          <li><%= mess.created_at %></li>
+          <li>
+          <% if pro.photo.present? %>
+
+                     <%= cl_image_tag pro.photo, width:"50", height: "50", alt:"" %>
+
+                  <% else %>
+                    <img width="50" height="50" src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" alt=""/>
+
+                  <% end %>
+          <p>Auteur = <%=pro.last_name%> <%=pro.first_name%></p></li>
+        </ul>
+        <!-- Post Body-->
+        <div class="post-body" style="margin-bottom: 30px;">
+          <p><%= mess.message_content%></p>
+          <% if mess.message_photo.present? %>
+            <%= cl_image_tag mess.message_photo, width:"150", height: "150", alt:"" %>
+          <% end %>
+        </div>
+      </section>
+    </article>
+  </div>
+<% end  %>
+

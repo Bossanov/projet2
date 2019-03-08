@@ -1,0 +1,21 @@
+
+    <% @profiles.each do |profile| %>
+      <% if profile.category == "Dentiste" %>
+        <div class="cell-xs-8 cell-sm-7 cell-md-3 offset-top-41 offset-md-top-0", style="margin-top: 20px">
+          <!-- Thumbnail Josip-->
+          <% if profile.photo.present?%>
+            <figure class="thumbnail-josip odd"><a href="<%= profile_path(profile)%>"><img width="270" height="270" src= "<%=profile.photo %>" alt=""/></a>
+          <% else %>
+            <figure class="thumbnail-josip odd"><a href="<%= profile_path(profile)%>"><img width="270" height="270" src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" alt=""/></a>
+          <% end %>
+          <div class="thumbnail-desc">
+            <h4 class="thumbnail-josip-title text-bold text-white"><%= profile.first_name.capitalize %> <%= profile.last_name.upcase %></h4>
+            <% if profile.city %>
+            <p class="veil reveal-md-block text-italic text-white offset-top-0"><%= profile.city.upcase %></p>
+            <% end %>
+          </div>
+          <figcaption><a <%= link_to 'Voir ce profil', profile_path(profile), class: 'btn btn-block btn-rect text-md-left btn-secondary'%></a></figcaption>
+        </figure>
+      </div>
+    <% end %>
+  <% end%>

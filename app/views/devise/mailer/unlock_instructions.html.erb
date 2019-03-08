@@ -1,0 +1,9 @@
+<p>Hello <%= @resource.email %>!</p>
+
+<p>Votre compte a été bloqué par sécurité suite à de nombreux eches de log-in.</p>
+
+<p>Merci de cliquer sur le lien ci dessous.</p>
+
+<p><%= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token: @token) %></p>
+<p>L'équipe Handident.</p>
+

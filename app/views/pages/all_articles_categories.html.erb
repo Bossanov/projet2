@@ -1,0 +1,108 @@
+<div class="page text-center">
+  <!-- Page Contents-->
+  <main class="page-content">
+    <!-- Classic Thumbnail-->
+    <!-- Portfolio Grid 3 columns-->
+    <section class="section-98 section-sm-110">
+      <div class="shell">
+        <div class="isotope-wrap">
+          <div class="row">
+            <!-- Isotope Filters-->
+            <div class="col-lg-12">
+              <div class="isotope-filters isotope-filters-horizontal">
+                <ul class="list-inline list-inline-sm">
+                  <li class="veil-md">
+                    <p>Choisissez votre thème:</p>
+                  </li>
+                  <li class="section-relative">
+                    <button data-custom-toggle="isotope-1" data-custom-toggle-disable-on-blur="true" class="isotope-filters-toggle btn btn-sm btn-default">Filter<span class="caret"></span></button>
+                    <ul id="isotope-1" class="list-sm-inline isotope-filters-list">
+                      <li><a data-isotope-filter="*" data-isotope-group="gallery" href="#" class="active">Tous les articles</a></li>
+                      <li><a data-isotope-filter="Meopa" data-isotope-group="gallery" href="#">MEOPA</a></li>
+                      <li><a data-isotope-filter="Evenement" data-isotope-group="gallery" href="#">Evenement</a></li>
+                      <li><a data-isotope-filter="HAS" data-isotope-group="gallery" href="#">HAS</a></li>
+                      <li><a data-isotope-filter="Sante" data-isotope-group="gallery" href="#">Santé et handicap</a></li>
+                      <li><a data-isotope-filter="Culture" data-isotope-group="gallery" href="#">Culture</a></li>
+                      <li><a data-isotope-filter="Vie" data-isotope-group="gallery" href="#">Vie associative</a></li>
+
+
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Isotope Content-->
+            <div class="col-lg-12 offset-top-34">
+              <div data-isotope-layout="fitRows" data-isotope-group="gallery" class="isotope">
+                <div data-photo-swipe-gallery="gallery" class="row">
+
+                  <% @articles = Article.all %>
+
+                  <% @articles.each do |article| %>
+
+                    <% if article.theme == "Meopa" %>
+                      <div data-filter="Meopa" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+
+                    <% elsif article.theme == "Evènement" %>
+                      <div data-filter="Evenement" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+                    <% elsif article.theme == "HAS" %>
+                      <div data-filter="HAS" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+                    <% elsif article.theme == "Santé et handicap" %>
+                      <div data-filter="Sante" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+                    <% elsif article.theme == "Culture" %>
+                      <div data-filter="Culture" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+                    <% elsif article.theme == "Vie associative" %>
+                      <div data-filter="Vie" class="col-xs-12 col-sm-6 col-md-4 isotope-item"><a class="thumbnail-custom" data-photo-swipe-item="" data-size="1200x800" href="images/gallery/originals/gallery-01_original.jpg">
+                        <figure><%= image_tag "gallery/gallery-01-370x240.jpg", width:'370', height:'240', alt:"" %>
+                          <figcaption class="thumbnail-custom-caption text-center">
+                            <h4 class="thumbnail-custom-title text-white"><%= article.article_title%></h4>
+                            <hr class="divider divider-xs bg-white">
+                          </figcaption>
+                        </figure></a>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

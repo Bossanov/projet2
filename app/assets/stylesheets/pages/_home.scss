@@ -1,0 +1,18 @@
+// Specific CSS for your home-page
+.map-index{
+  flex: 0 0 450px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+.house-main {
+  display: flex;
+  @media all and (max-width: 700px){
+    .map-index {
+      display: none;
+    }
+  }
+}
+
+

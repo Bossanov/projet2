@@ -1,0 +1,133 @@
+<!-- Page-->
+<div class="page text-center">
+
+  <!-- Page Content-->
+  <main class="page-content section-top-98 section-sm-top-110">
+    <!-- Get In Touch-->
+    <section>
+      <div class="shell">
+        <div class="range range-xs-center">
+          <div class="cell-sm-9 cell-md-8 cell-lg-12">
+            <div class="range">
+              <div class="cell-lg-8 text-left">
+                <h2>Envoyer une demande de rdv au dentiste de votre choix</h2>
+                <hr class="divider divider-lg bg-secondary hr-left-0 hr-sm-left-2">
+                <div class="offset-top-34">
+                  <%= simple_form_for [@profile, @meeting] do |f| %>
+                    <% @profiles = Profile.all %>
+                    <% result = [] %>
+                    <% @profiles.each do |pro| %>
+                      <% if pro.category == "Dentiste" %>
+                        <% result << "#{pro.last_name} #{pro.first_name}" %>
+                      <% end %>
+                    <% end %>
+                    <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" novalidate="novalidate" class="rd-mailform text-left">
+                      <div class="range range-xs-center">
+                        <div class="cell-sm-6">
+                          <div class="form-group form-group-label-outside">
+                            <%= f.input :reason ,label:'Motif de la demande de rendez-vous:', type:"text", name:"Prénom", required: true, class: "form-control form-control-last-child" %>
+                          </div>
+                        </div>
+                        <div class="cell-sm-6 offset-top-20 offset-sm-top-0">
+                          <% if @meeting.destinataire %>
+                          <div class="form-group form-group-label-outside ">
+                            <%= f.input :destinataire,label:'Destinataire:', required: true, collection: [@meeting.destinataire],  class: "form-control form-control-last-child" %>
+                          </div>
+                          <% else %>
+                          <div class="form-group form-group-label-outside ">
+                            <%= f.input :destinataire, label:'Destinataire:', required: true, collection: result.sort,  class: "form-control form-control-last-child" %>
+                          </div>
+                          <% end %>
+                        </div>
+                        <div class="cell-xs-12">
+                          <div class="form-group form-group-label-outside offset-top-20">
+                            <%= f.input :disponibility ,label:'Vos disponibilités:',  input_html: {style: 'height:150px;'}, required: true, :as => :text,  class: "form-control form-control-last-child" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="offset-top-18 offset-sm-top-24 text-center text-sm-left">
+                        <div class="group-lg offset-top-20 offset-md-top-30">
+                          <button type="submit" style="min-width: 130px;" class="btn btn-lg btn-ellipse btn-primary">ENVOYER</button>
+                          <p><%= link_to 'Annuler', root_path, class: 'btn btn-lg btn-ellipse btn-white', style:"margin-top:20px"%></p>
+                        </div>
+                      </div>
+                    </form>
+                  <% end %>
+                </div>
+              </div>
+              <div class="cell-lg-4 text-left offset-top-66 offset-lg-top-0">
+                <div class="inset-lg-left-40">
+                  <div>
+                    <h4>Liens sociaux</h4>
+                    <hr class="text-subline">
+                      <ul class="list-inline">
+                        <li><a href="https://fr-fr.facebook.com/handident/" target="_blank" class="icon fa fa-facebook icon-xxs icon-circle icon-gray-light"></a></li>
+                        <li><a href="https://twitter.com/handidentoff" target="_blank" class="icon fa fa-twitter icon-xxs icon-circle icon-gray-light"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCgVsiGM8NqG5VBQ9j_ZBjTQ" target="_blank" class="icon fa fa-google icon-xxs icon-circle icon-gray-light"></a></li>
+                      </ul>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Adresse</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-map-marker text-secondary"></div>
+                        </div>
+                        <div class="unit-body">
+                          <p><a class="text-gray-dark" style="text-decoration: none;">10 rue du Petit Boulevard BP 20127<br>59653 Villeneuve d'Ascq Cedex</a></p>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Heures d'ouverture</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-calendar-clock text-secondary"></div>
+                        </div>
+                        <div class="unit-body">
+                          <div class="text-gray-dark">Lun-Ven: 08:00–18:00</div>
+                          <div class="text-gray-dark">WE: Fermé</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>Téléphone</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-phone text-secondary"></div>
+                        </div>
+                        <div class="unit-body"><a class="text-dark reveal-block">+33.3.28.80.7.86</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-top-60">
+                    <h4>E-mail</h4>
+                    <hr class="text-subline">
+                    <div class="offset-top-20">
+                      <div class="unit unit-horizontal unit-spacing-xxs p">
+                        <div class="unit-left">
+                          <div class="icon icon-xxs text-middle mdi mdi-email-outline text-secondary"></div>
+                        </div>
+                        <div class="unit-body"><a href="mailto:#" class="text-dark">Hello@handident.com</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offset-top-110">
+      </div>
+    </section>
+  </main>
+</div>

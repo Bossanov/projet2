@@ -1,0 +1,45 @@
+<% @profile = Profile.find_by_id(current_user.profile.id) %>
+<% @rdvs = Meeting.where(destinataire: "#{@profile.last_name} #{@profile.first_name}") %>
+
+<div class="page text-center">
+      <!-- Page Content-->
+      <main class="page-content section-98 section-sm-110" style="padding-top: 0px;">
+        <!-- Full-Width Grid System-->
+        <section class="offset-top-90 section-grid-demonstration">
+          <div class="shell-fluid text-sm-left inset-lg-left-75 inset-lg-right-75">
+            <h2>Vos demandes de rdv</h2>
+            <hr class="divider divider-lg bg-secondary hr-sm-left-2">
+            <% if @rdvs.empty?  %>
+              <div class="row offset-top-60">
+                <div class="col-xs-12">
+                  <div class="bg-white-liac section-30 inset-left-15 inset-right-15 inset-md-left-30 inset-md-right-30">
+                    <div>
+                      <p>Aucune demande en attente</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% else  %>
+              <% @rdvs.each do |rdv| %>
+                <% pro = Profile.find_by_id(rdv.profile_id) %>
+                <div class="row offset-top-60">
+                  <div class="col-xs-12">
+                    <div class="bg-white-liac section-30 inset-left-15 inset-right-15 inset-md-left-30 inset-md-right-30">
+                      <div>
+                        <h4>Patient: <%=pro.last_name%> <%=pro.first_name%></h4>
+                        <h5>Demande reçue le <%= rdv.created_at.strftime("%d.%m.%Y") %></h5>
+                        <h6><strong>Motif: <%=rdv.reason%></strong></h6>
+                        <p class="text-underline" >Disponibilités: </p><p><%= rdv.disponibility %></p>
+                        <a><%= link_to 'Répondre', new_profile_message_path(@profile, destinataire: "#{pro.last_name} #{pro.first_name}"), class: 'btn btn-xs btn-rect btn-primary', style:"margin-top: 20px;"%></a>
+                        <a><%= link_to 'Effacer', profile_meeting_path(@profile,rdv), class: 'btn btn-xs btn-rect btn-red', style:"margin-top: 20px;", method: :delete,data: { confirm: "Etes vous sûr?" }%></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end  %>
+            <% end  %>
+          </div>
+        </section>
+      </main>
+    </div>
+</div>

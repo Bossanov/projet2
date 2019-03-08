@@ -1,0 +1,65 @@
+<% @result = []%>
+<% @profile = Profile.find_by_id(current_user.profile.id) %>
+
+<% @sort = Message.where(profile_id: @profile.id ) %>
+<% @entre = Message.where(destinataire: "#{@profile.last_name} #{@profile.first_name}") %>
+<section class="section-98 section-sm-110">
+  <div class="shell">
+    <div class="offset-top-41 offset-lg-top-60">
+      <div class="range range-xs-center">
+
+
+        <% @entre.each do |mess| %>
+          <% pro = Profile.find_by_id(mess.profile_id) %>
+          <% until @result.include?(pro.id) %>
+            <div class="cell-xs-8 cell-sm-7 cell-md-3 offset-top-41 offset-md-top-0", style="margin-top: 20px">
+              <% if pro.photo.present? %>
+                <figure class="thumbnail-josip odd"><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=pro.id%>'><img width="270" height="270" src="<%=pro.photo %>" alt=""/></a>
+                  <div class="thumbnail-desc">
+                    <h4 class="thumbnail-josip-title text-bold text-white"><%= pro.first_name %> <%= pro.last_name %></h4>
+                  </div>
+                  <figcaption><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=pro.id%>' class="btn btn-block btn-rect text-md-left btn-secondary">Voir la conversation</a></figcaption>
+                </figure>
+              <% else  %>
+                <figure class="thumbnail-josip odd"><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=pro.id%>'><img width="270" height="270" src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" alt=""/></a>
+                  <div class="thumbnail-desc">
+                    <h4 class="thumbnail-josip-title text-bold text-white"><%= pro.first_name %> <%= pro.last_name %></h4>
+                  </div>
+                  <figcaption><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=pro.id%>' class="btn btn-block btn-rect text-md-left btn-secondary">Voir la conversation</a></figcaption>
+                </figure>
+              <% end  %>
+            </div>
+            <% @result << pro.id %>
+          <% end  %>
+        <% end %>
+
+        <% @sort.each do |mess| %>
+          <% dest = Profile.where(maildest: mess.destinataire) %>
+          <% until @result.include?(dest.last.id) %>
+            <div class="cell-xs-8 cell-sm-7 cell-md-3 offset-top-41 offset-md-top-0", style="margin-top: 20px">
+              <% if dest.last.photo.present? %>
+                <figure class="thumbnail-josip odd"><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=dest.last.id%>'><img width="270" height="270" src="<%=dest.last.photo %>" alt=""/></a>
+                  <div class="thumbnail-desc">
+                    <h4 class="thumbnail-josip-title text-bold text-white"><%= dest.last.first_name %> <%= dest.last.last_name %></h4>
+                  </div>
+                  <figcaption><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=dest.last.id%>' class="btn btn-block btn-rect text-md-left btn-secondary">Voir la conversation</a></figcaption>
+                </figure>
+              <% else  %>
+                <figure class="thumbnail-josip odd"><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=dest.last.id%>'><img width="270" height="270" src="http://res.cloudinary.com/dz83jh064/image/upload/v1517825470/images_z0whi1.png" alt=""/></a>
+                  <div class="thumbnail-desc">
+                    <h4 class="thumbnail-josip-title text-bold text-white"><%= dest.last.first_name %> <%= dest.last.last_name %></h4>
+                  </div>
+                  <figcaption><a href='/pages/conversationitem?profile_id=<%=@profile.id%>&auteur_id=<%=dest.last.id%>' class="btn btn-block btn-rect text-md-left btn-secondary">Voir la conversation</a></figcaption>
+                </figure>
+              <% end  %>
+            </div>
+            <% @result << dest.last.id %>
+          <% end  %>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,52 @@
+<!-- Page-->
+<div class="page text-center">
+  <!-- faire un don-->
+  <section class="section-98 section-sm-110 text-left">
+    <div class="shell">
+      <div class="range range-xs-center">
+        <div class="cell-xs-10 cell-md-8">
+          <h2>Vous souhaitez rejoindre l'aventure ?</h2>
+          <hr class="divider divider-lg bg-secondary hr-left-0 hr-sm-left-2">
+          <div class="offset-top-41 offset-lg-top-60">
+            <h3>Pourquoi soutenir HANDIDENT?</h3>
+            <hr class="text-subline">
+            <p>En faisant un don à HANDIDENT, vous participez à la prévention et à l’amélioration de l’offre de soins pour les personnes en situation de handicap des HAUTS-DE-FRANCE. Vous rendez possible la création de lieu de soins adaptés et spécifiques les USOS, qui permettent de donner des soins dentaires aux personnes en situation de handicap de tous les âges quelles que soient leurs déficiences.</p>
+            <h3>Ce que devient votre don</h3>
+            <hr class="text-subline">
+            <p>Que peut-on faire avec 100 € ?</p>
+            <ul>
+              <li>Dépister 10 personnes</li>
+              <li>Équiper une classe avec 5 livrets Diden pour apprendre l’hygiène buccodentaire aux enfants en situation de handicap accueillis</li>
+              <li>Offrir un atelier éducationnel pour 2 personnes en situation de handicap</li>
+            </ul>
+            <p>Il n’y a pas de petites sommes, chaque don est important !</p>
+            <h3>Déductions fiscales</h3>
+            <hr class="text-subline">
+            <p>Savez-vous que 66% de votre don à HANDIDENT sont déductibles de vos impôts, dans la limite de 20% de votre revenu net imposable. Nous vous fournirons un reçu vous permettant de faire valoir vos droits. N’hésitez pas à nous contacter pour plus d’informations au 03 28 80 07 86.</p>
+            <p><strong>Un don de 100 euros ne vous coûte en réalité que 34 euros après déduction fiscale.</strong></p>
+            <p>Vous pouvez adresser vos dons par chèque libellé à l’ordre de :</p>
+            <p>Association HANDIDENT</p>
+            <p>10 rue du Petit Boulevard</p>
+            <p>BP 20127</p>
+            <p>59653 Villeneuve d’Ascq Cedex</p>
+          </div>
+        </div>
+        <div class="cell-xs-10 cell-md-4 offset-top-41 offset-md-top-0">
+          <h3>Faites un don</h3>
+          <hr class="text-subline">
+          <div class="offset-top-30">
+            <% if current_user == nil %>
+              <%= link_to 'Je fais un don', new_user_session_path, class:"btn-fullwidth btn btn-primary btn-ellipse", style:"margin-top:20px" %>
+            <% else  %>
+              <%= link_to 'Je fais un don', new_profile_donation_path(current_user.id), class:"btn-fullwidth btn btn-primary btn-ellipse", style:"margin-top:20px" %>
+            <% end  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+

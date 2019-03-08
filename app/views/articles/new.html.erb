@@ -1,0 +1,41 @@
+<div class="page text-center">
+  <!-- Page Content-->
+  <main class="page-content section-98 section-sm-110" >
+    <!-- Contact us-->
+    <section class="offset-top-90 offset-md-top-130">
+      <%= simple_form_for [@profile, @article] do |f| %>
+        <div class="shell">
+          <div class="range range-xs-center range-lg-left">
+            <div class="cell-sm-8">
+              <h4 class="text-md-left">Publier un article</h4>
+              <hr class="text-subline">
+              <div class="offset-top-30">
+                <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" novalidate="novalidate" class="rd-mailform text-left">
+                  <div class="form-group form-group-label-outside offset-top-20">
+                    <%= f.input :article_title , id:"contacts-last-name", type:"text", name:"Adresse", required: true, class: "form-control form-control-last-child", label:"Titre de l'article"%>
+                    <%= f.input :theme, collection: ["Meopa", "Evènement", "HAS", "Santé et handicap", "Culture", "Vie associative"], class: "form-control form-control-last-child", label:"Choisissez votre Thème" %>
+                  </div>
+                  <div class="form-group form-group-label-outside offset-top-20">
+                    <%= f.input :article_content , :as => :text, input_html: {style: 'max-height:1500px;'}, required: true, class: "form-control form-control-last-child", label:"Contenu de l'article" %>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <%= f.input :article_photo, class: "form-control", label:"Pièce jointe"%>
+                      <%= f.input :article_photo_cache, as: :hidden %>
+                    </div>
+                  </div>
+                  <div class="offset-top-18 offset-sm-top-30 text-center text-sm-left">
+                    <button type="submit" style="min-width: 130px;" class="btn-fullwidth btn btn-ellipse btn-primary ">publier mon article</button>
+                    <p><%= link_to 'Annuler', profile_path(current_user.profile), class: 'btn-fullwidth btn btn-ellipse btn-white', style:"margin-top:20px"%></p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  </main>
+</div>
+<!-- Java script-->
+

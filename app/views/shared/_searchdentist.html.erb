@@ -1,0 +1,57 @@
+<div class="shell text-left">
+          <div class="range range-xs-center range-xs-middle range-lg-right section-relative">
+            <div class="cell-xs-10 cell-sm-7 cell-md-5 cell-lg-4 offset-top-40 offset-top-0 swiper-center-caption swiper-center-caption-centered">
+              <!-- Panel-->
+              <div class="panel panel-lg panel-lg-vertical bg-overlay-gray-dark text-lg-left" style="background-color: #ededed";>
+                <h4 >Rechercher un docteur:</h4>
+                <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" novalidate="novalidate" class="rd-mailform offset-top-24" >
+                  <div class="group-12 group-top">
+                    <div class="group-item element-fullwidth">
+                      <div class="form-group form-group-label-outside">
+                        <label for="index-phone" class="form-label form-label-outside ">Département</label>
+                        <div class="select2-whitout-border shadow-drop-md">
+                          <select id="index-dept" data-minimum-results-for-search="Infinity" class="form-control", style="background-color: white">
+
+                              <option value=""><%= %></option>
+
+                              <option value="Aisne">Aisne</option>
+
+                              <option value="Nord">Nord</option>
+
+                              <option value="Oise">Oise</option>
+
+                              <option value="Pas-de-Calais">Pas-de-Calais</option>
+
+                              <option value="Somme">Somme</option>
+
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="group-item element-fullwidth">
+                      <div class="form-group form-group-label-outside">
+                        <label for="index-city" class="form-label form-label-outside ">Ville</label>
+                        <div class="select2-whitout-border shadow-drop-md">
+                          <select id="index-city" data-minimum-results-for-search="Infinity" class="form-control", style="background-color: white">
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="group-item element-fullwidth">
+                      <div class="form-group form-group-select-white text-left">
+                        <label for="index-doctor" class="form-label form-label-outside ">Docteur</label>
+                        <div class="select2-whitout-border shadow-drop-md">
+                          <select id="index-doctor" data-minimum-results-for-search="Infinity" class="form-control", style="background-color: white">
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="bouttonsearch" class="group-item element-fullwidth offset-top-20 text-center text-md-left">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
